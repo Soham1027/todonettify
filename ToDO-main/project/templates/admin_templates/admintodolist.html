@@ -1,0 +1,60 @@
+{% extends 'layouts/base_auth.html' %}
+{% block content %}
+{% include "includes/sidebar.html" %}
+{% include "includes/navigation.html" %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <section class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <h1>Todo List</h1>
+                    {% for team, todos in team_todos.items %}
+                    <h2>{{ team }} </h2>
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Username</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Date Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for todo in todos %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ todo.user }}</td>
+                                    <td>{{ todo.title }}</td>
+                                    <td>{{ todo.description }}</td>
+                                    <td>{{ todo.date_created|date:"d-M-Y" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% include "includes/footer.html" %} 
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function() {
+            $('#todoTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "order": [[5, "desc"]],  // Default order by date_created column
+            });
+        });
+    </script>
+
+{% endblock content %}

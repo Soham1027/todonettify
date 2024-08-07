@@ -1,0 +1,118 @@
+
+{% extends "layouts/base_auth.html" %}
+{% load static %}
+{% block content %}
+{% include "includes/sidebar.html" %}
+{% include "includes/navigation.html" %}
+
+
+<section class="pcoded-main-container">
+  <div class="pcoded-wrapper">
+    <div class="pcoded-content">
+      <div class="pcoded-inner-content">
+        <div class="main-body">
+          <div class="page-wrapper">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Profile</h5>
+                  </div>
+                  <div class="card-block">
+                    <div class="row">
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          <label for="fn">User Name</label>
+                          <input type="text" class="form-control" id="fn" aria-describedby="emailHelp" placeholder="Enter User Name" value="{{ request.user }}" readonly>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          <label for="ln">Mobile Number</label>
+                          <input type="number" class="form-control" id="ln" aria-describedby="emailHelp" placeholder="Enter Mobile Number" value="{{ request.user.mobile_number }}" readonly>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 mb-4">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{ request.user.email }}" readonly>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          <label for="ln">Team</label>
+                          <input type="text" class="form-control" id="ln" aria-describedby="emailHelp" placeholder="Enter Mobile Number" value="{{ request.user.team }}" readonly>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 mb-4">
+                        <div class="form-group">
+                          <label for="ln">Designation</label>
+                          {% if user.is_authenticated %}
+                              {% if request.user.role == "1" %}
+                                  <input type="text" class="form-control" id="ln" value="CEO / Project_Manager" readonly>
+                              {% elif request.user.role == "2" %}
+                                  <input type="text" class="form-control" id="ln" value="Team Leader" readonly>
+                              {% elif request.user.role == "3" %}
+                                  <input type="text" class="form-control" id="ln" value="Developer" readonly>
+                              {% endif %}
+                          {% endif %}
+                        </div>
+                      </div>
+                      <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-sm-12 mb-4">
+                          <div class="form-group">
+                            <label for="ln">Profile Picture</label>
+                            <input type="file" class="form-control" name="profile_picture" accept="image/png">
+                            {% if request.user.photo %}
+                            <p>{{ request.user.photo|cut:"profile_images/" }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-sm-12 mb-4">
+                          <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="d-flex align-items-center justify-content-center flex-column">
+                      <div class="w-50 p-3">
+                        <img src="{% if request.user.photo %}{{ request.user.photo.url }}{% else %}https://via.placeholder.com/500{% endif %}" alt="profile image" class="img-fluid rounded-circle">
+                      </div>
+                      <div class="text-center">
+                        <h4 class="font-weight-bold h6">{{ request.user }}</h4>
+                        <p class="font-italic text-muted">{{ request.user.team }}</p>
+                      </div>
+                    </div>
+                    <div class="small font-weight-light mt-4 text-center text-muted">
+                      {% if user.is_authenticated %}
+                      {% if request.user.role == "1" %}
+                      <p type="text">CEO / Project_Manager</p>
+                      {% elif request.user.role == "2" %}
+                      <p type="text">Team Leader</p>
+                      {% elif request.user.role == "3" %}
+                      <p type="text"> Developer</p>
+                      {% endif %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [ Main Content ] end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% include "includes/footer.html" %} 
+
+
+{% endblock content %}

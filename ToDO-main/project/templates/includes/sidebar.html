@@ -1,0 +1,190 @@
+<style>
+  /* CSS styles for the navbar */
+  .pcoded-navbar #nav-logo {
+    display: block;
+  }
+
+  .pcoded-navbar #nav-icon {
+    display: none;
+  }
+
+  .pcoded-navbar.collapsed #nav-logo {
+    display: none;
+  }
+
+  .pcoded-navbar.collapsed #nav-icon {
+    display: block;
+  }
+</style>
+<!-- Navbar HTML structure -->
+<nav class="pcoded-navbar">
+  <div class="navbar-wrapper">
+    <div class="navbar-brand header-logo">
+      <!-- Small logo (hidden by default) -->
+      <img class="pcoded-micon" src="{{ small_logo_url }}" id="nav-icon" height="30px" width="30px" style="display: none; margin-right: 0px;">
+      <!-- Main company logo (conditionally displayed) -->
+      <span class="pcoded-content" id="nav-logo">
+        {% if company_logo_url %}
+          <img src="{{ company_logo_url }}" alt="Company Logo" height="50px" width="150px">
+        {% endif %}
+      </span>
+      <!-- Mobile menu button -->
+      <a class="mobile-menu" id="mobile-collapse" href="javascript:void(0);">
+        <span></span>
+      </a>
+    </div>
+    <div class="navbar-content scroll-div">
+      <!-- Navigation links -->
+      <ul class="nav pcoded-inner-navbar">
+        <li class="nav-item pcoded-menu-caption">
+          <label>Navigation</label>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'home' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-house"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Home</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'profile' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-regular fa-user"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">User Profile</span>
+          </a>
+        </li>
+
+        {% if user.is_authenticated and user.role == "2" %}
+        <li class="nav-item">
+          <a href="{% url 'teamtodo' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-regular fa-user"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Team Todo List</span>
+          </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+          <a href="{% url 'add_todo' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-list-check"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Add To-Do</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'todolist' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-table-list " style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">ToDo List</span>
+          </a>
+        </li>
+
+        {% if user.is_authenticated and user.role != "3" %}
+        <li class="nav-item">
+          <a href="{% url 'add_user' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-user-plus" " style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Add User</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == "1" %}
+        <li class="nav-item">
+          <a href="{% url 'userlist' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-users" style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">User List</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == "1" %}
+        <li class="nav-item">
+          <a href="{% url 'projects_list' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-diagram-project " style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Projects</span>
+          </a> 
+      
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == "1" %}
+        <li class="nav-item">
+          <a href="{% url 'projects' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-diagram-project"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Add Project</span>
+          </a>   
+      
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == "1" %}
+        <li class="nav-item">
+          <a href="{% url 'project_version_form' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-users"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Add Project Version </span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == "1" %}
+        <li class="nav-item">
+          <a href="{% url 'team' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fa-solid fa-users"  style="color: rgb(226, 165, 34);"></i>
+            </span>
+            <span class="pcoded-mtext">Add Team</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated and user.role == "1" %}
+        <li class="nav-item">
+          <a href="{% url 'system_settings' %}" class="nav-link">
+            <span class="pcoded-micon">
+              <i class="fas fa-cog"  style="color: rgb(226, 165, 34);"></i> <!-- Adjust the icon class here -->
+            </span>
+            <span class="pcoded-mtext">System Settings</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // JavaScript for toggling navbar collapse and switching logo visibility
+  document.getElementById('mobile-collapse').addEventListener('click', function () {
+    var navbar = document.querySelector('.pcoded-navbar');
+    navbar.classList.toggle('collapsed');
+
+    var navLogo = document.getElementById('nav-logo');
+    var navIcon = document.getElementById('nav-icon');
+
+    if (navbar.classList.contains('collapsed')) {
+      navLogo.style.display = 'none';
+      navIcon.style.display = 'block';
+    } else {
+      navLogo.style.display = 'block';
+      navIcon.style.display = 'none';
+    }
+  });
+</script>

@@ -1,0 +1,64 @@
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Customize according to message tags
+                {% if message.tags == 'error' %}
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: '{{ message }}',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        toast: true,
+                        showCloseButton: true,
+                        showClass: {
+                            popup: 'animate__animated animate__fadeIn',
+                            toast: 'swal2-toast',
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOut animate__slow',
+                        },
+                        hoverPause: true
+                    });
+                {% elif message.tags == 'success' %}
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '{{ message }}',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        toast: true,
+                        showCloseButton: true,
+                        showClass: {
+                            popup: 'animate__animated animate__fadeIn',
+                            toast: 'swal2-toast',
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOut animate__slow',
+                        },
+                        hoverPause: true
+                    });
+                {% elif message.tags == 'warning' %}
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: '{{ message }}',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        toast: true,
+                        showCloseButton: true,
+                        showClass: {
+                            popup: 'animate__animated animate__fadeIn',
+                            toast: 'swal2-toast',
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOut animate__slow',
+                        },
+                        hoverPause: true
+                    });
+                {% endif %}
+            });
+        </script>
+    {% endfor %}
+{% endif %}
